@@ -52,25 +52,31 @@ class ToolConsumer(LaunchParamsMixin, RequestValidatorMixin, object):
                 self.resource_link_id and\
                 self.launch_url
 
+    def _params_update(self):
+        return {
+            'oauth_nonce': str(generate_identifier()),
+            'oauth_timestamp': str(int(time.time())),
+            'oauth_scheme': 'body'
+        }
+
     def generate_launch_data(self):
         # Validate params
         if not self.has_required_params():
             raise InvalidLTIConfigError('ToolConsumer does not have all required attributes: consumer_key = %s, consumer_secret = %s, resource_link_id = %s, launch_url = %s' %(self.consumer_key, self.consumer_secret, self.resource_link_id, self.launch_url))
 
         params = self.to_params()
-        params['lti_version'] = 'LTI-1.0'
+
+        if not params.get('lit_version', None):
+            params['lti_version'] = 'LTI-1.0'
+
         params['lti_message_type'] = 'basic-lti-launch-request'
 
         # Get new OAuth consumer
         consumer = oauth2.Consumer(key = self.consumer_key,\
                 secret = self.consumer_secret)
 
-        params.update({
-            'oauth_nonce': str(generate_identifier()),
-            'oauth_timestamp': str(int(time.time())),
-            'oauth_scheme': 'body',
-            'oauth_consumer_key': consumer.key
-        })
+        params.update(self._params_update())
+        params.update({'oauth_consumer_key': consumer.key})
 
         uri = urlparse.urlparse(self.launch_url)
         if uri.query != '':
