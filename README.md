@@ -4,12 +4,18 @@ Python port of the useful [ims-lti](https://github.com/instructure/ims-lti) Ruby
 
 ## Installation
 
-If you have setuptools, simply run `python setup.py install` to install the library to your current environment.
+The easiest way to get the most recent stable build is to grab from the cheeseshop:
+
+```
+pip install ims_lti_py
+```
+
+Or, if you have setuptools, simply run `python setup.py install` to install the library to your current environment.
 
 ## Dependencies
 
  * [lxml](https://github.com/lxml/lxml)
- * [python-oath2](https://github.com/simplegeo/python-oauth2)
+ * [python-oauth2](https://github.com/simplegeo/python-oauth2)
 
 ## Usage
 
