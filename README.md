@@ -2,6 +2,11 @@
 
 Python port of the useful [ims-lti](https://github.com/instructure/ims-lti) Ruby library. Makes integrating with LTI pretty easy.
 
+## Archived 
+
+This repository has been archived. If you are looking for a Python library for LTI, we recommend https://github.com/mitodl/pylti
+
+
 ## Installation
 
 The easiest way to get the most recent stable build is to grab from the cheeseshop:
